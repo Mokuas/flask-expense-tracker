@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<h3>Edit Your Category</h3>
+{% endblock %}
+
+ {% block body %}
+<div class="editCatagoriesCard">
+    <form action="/editCategory/{{category.id}}" method="post">
+        <input type="text" name="category" id="category" value="{{category.category}}"/>
+        <input type="submit" value="Finish update"/>
+    </form>
+</div>
+ {% endblock %}

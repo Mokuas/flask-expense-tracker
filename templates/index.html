@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<div class="contentCatagories">
+    <h3>Current Categories</h3>
+
+    {% if catagories | length < 1 %}
+    <h5>There is no category currently</h5>
+
+    {% else %}
+    <ul>
+        {% for c in catagories %}
+        <li>
+            <a href="/editCategory/{{ c.id }}" class="category_name">{{ c.category }}</a>
+            <form action="{{ url_for('deleteCategory', id=c.id) }}" method="POST" style="display:inline;">
+                <button type="submit" class="delete-btn">&times;</button>
+             </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+    {% endif %}
+
+    <form action="/" method = "POST">
+        <input type="text" name="content" id="content"/>
+        <input type="submit" name="Add Category" id="btn_add"  />
+    </form>
+</div>
+
+<div class="contentExpenses">
+  <h3>Expenses</h3>
+
+  <form action="/" method="post">
+    <input type="hidden" name="form_type" value="expense">
+
+    <ul>
+      <li>
+        <p>Category</p>
+        <select name="category_id" id="category_drop_down" required>
+          <option value="" disabled selected>Choose a category</option>
+          {% for c in catagories %}
+            <option value="{{ c.id }}">{{ c.category }}</option>
+          {% endfor %}
+        </select>
+      </li>
+
+      <li>
+        <p>Description</p>
+        <input type="text" name="expense_input_description" id="expense_input_description" required />
+      </li>
+
+      <li>
+        <p>Amount</p>
+        <input type="number" name="expense_input_amount" id="expense_input_amount" min="0" step="1" required />
+      </li>
+
+      <li>
+        <input type="submit" id="btn_add_expense" value="Add expense" />
+      </li>
+    </ul>
+  </form>
+
+  <table>
+    <tr>
+      <th>Category</th>
+      <th>Description</th>
+      <th>Date</th>
+      <th>Amount</th>
+    </tr>
+    {% for e in expenses %}
+    <tr>
+      <td>{{ e.category.category if e.category else '-' }}</td>
+      <td>{{ e.description }}</td>
+      <td>{{ e.date.strftime("%Y-%m-%d") }}</td>
+      <td>{{ e.amount }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+{% endblock %}
