@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+﻿{% extends 'base.html' %}
 
 {% block head %}
 {% endblock %}
@@ -24,7 +24,8 @@
 
     {% endif %}
 
-    <form action="/" method = "POST">
+    
+        <input type="hidden" name="form_type" value="category">
         <input type="text" name="content" id="content"/>
         <input type="submit" name="Add Category" id="btn_add"  />
     </form>
@@ -33,7 +34,8 @@
 <div class="contentExpenses">
   <h3>Expenses</h3>
 
-  <form action="/" method="post">
+  
+        <input type="hidden" name="form_type" value="category">
     <input type="hidden" name="form_type" value="expense">
 
     <ul>
